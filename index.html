@@ -1,0 +1,67 @@
+<!doctype html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>TWBA-Heroes</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
+
+  <script type="text/javascript" src="main.js"></script>
+
+  <link rel="import" href="bower_components/core-header-panel/core-header-panel.html">
+  <link rel="import" href="bower_components/core-media-query/core-media-query.html">
+  <link rel="import" href="bower_components/core-toolbar/core-toolbar.html">
+  <link rel="import" href="bower_components/core-icons/core-icons.html">
+  <link rel="import" href="bower_components/paper-menu-button/paper-menu-button.html">
+  <link rel="import" href="bower_components/paper-item/paper-item.html">
+  <link rel="import" href="bower_components/paper-dropdown/paper-dropdown.html">
+  <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
+  <link rel="import" href="bower_components/core-animated-pages/core-animated-pages.html">
+  <link rel="import" href="bower_components/font-roboto/roboto.html">
+
+  <link rel="import" href="elements/hero-datasource/hero-datasource.html">
+  <link rel="import" href="elements/hero-app/hero-app.html">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body unresolved fullbleed>
+  <template is="auto-binding">
+    <core-header-panel mode="waterfall" style="height: 100vh; width: 100vw;">
+      <core-toolbar>
+        <paper-menu-button class="{{$.heroApp.page != 'list' ? 'hidden' : ''}}">
+          <paper-button>
+            <core-icon icon="menu"></core-icon>
+          </paper-button>
+          <paper-dropdown class="dropdown">
+            <core-menu class="menu">
+              <paper-item>About</paper-item>
+              <paper-item>Settings</paper-item>
+              <paper-item>Feedback</paper-item>
+            </core-menu>
+          </paper-dropdown>
+        </paper-menu-button>
+        <paper-icon-button icon="arrow-back" class="{{$.heroApp.page != 'list' ? '' : 'hidden'}}" on-tap="{{back}}" on-click="{{back}}"></paper-icon-button>
+        <span>TWBA Heroes</span>
+        <div flex></div>
+        <paper-button id="compareButton" raisedButton
+          class="{{$.heroApp.page != 'list' ? '' : 'hidden'}}">
+          <core-icon icon="assessment"></core-icon>
+          {{tinyScreen === true ? '' : 'Compare'}}
+        </paper-button>
+      </core-toolbar>
+
+      <core-media-query query="max-width: 600px" queryMatches="{{tinyScreen}}"></core-media-query>
+
+      <hero-datasource heroes="{{heroes}}" debugfillup="false"></hero-datasource>
+      <hero-app flex id="heroApp" heroes="{{heroes}}"></hero-app>
+
+    </core-header-panel>
+  </template>
+</body>
+</html>
